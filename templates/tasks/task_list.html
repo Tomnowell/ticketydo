@@ -1,2 +1,17 @@
 <h1>Welcome to TicketyDo 🕐</h1>
 <p>This is where time-boxed tasks live.</p>
+
+{% extends "base.html" %}
+{% block content %}
+  <h2>Your Tasks</h2>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <strong>{{ task.title }}</strong> – {{ task.estimated_minutes }} mins
+        {% if task.is_completed %}✅{% endif %}
+      </li>
+    {% empty %}
+      <li>No tasks yet. Let's create one!</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

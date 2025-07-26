@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>TicketyDo</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">TicketyDo 🕐</a></h1>
+      {% if user.is_authenticated %}
+        <p>Logged in as {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+      {% else %}
+        <p><a href="{% url 'login' %}">Login</a></p>
+      {% endif %}
+      <hr>
+    </header>
+
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>
