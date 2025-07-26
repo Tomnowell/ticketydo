@@ -9,6 +9,12 @@
       <li>
         <strong>{{ task.title }}</strong> – {{ task.estimated_minutes }} mins
         {% if task.is_completed %}✅{% endif %}
+        <form method="post" action="{% url 'task-complete' task.id %}">
+            {% csrf_token %}
+            {% if not task.is_completed %}
+                <button type="submit">✅ Complete</button>
+            {% endif %}
+        </form>
       </li>
     {% empty %}
       <li>No tasks yet. Let's create one!</li>
