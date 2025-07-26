@@ -1,25 +1,49 @@
 <h1>Welcome to TicketyDo 🕐</h1>
-<p>This is where time-boxed tasks live.</p>
 
 {% extends "base.html" %}
+
+{% load task_extras %}
+
 {% block content %}
   <h2>Your Tasks</h2>
   <ul>
-    {% for task in tasks %}
-      <li>
-        <strong>{{ task.title }}</strong> – {{ task.estimated_minutes }} mins
-        {% if task.is_completed %}✅{% endif %}
-        <form method="post" action="{% url 'task-toggle' task.id %}" style="display:inline;">
-            {% csrf_token %}
-            {% if task.is_completed %}
-                <button type="submit">🔄 Undo</button>
-            {% else %}
-                <button type="submit">✅ Complete</button>
-            {% endif %}
+  {% for task in tasks %}
+    <li>
+      <strong>{{ task.title }}</strong>
+      {% if task.completed %}
+        ✅
+      {% endif %}
+
+    <!-- Timer Display -->
+    {% if active_sessions|get_item:task.id %}
+        {% with session=active_sessions|get_item:task.id %}
+            <div>
+                Timer running for:
+                {{ session.start_time|timesince }}
+            </div>
+            <form method="post" action="{% url 'task-stop-timer' task.id %}">
+                {% csrf_token %}
+                <button type="submit">⏹ Stop Timer</button>
+            </form>
+            
+        {% endwith %}
+    {% else %}
+        <form method="post" action="{% url 'task-start-timer' task.id %}">
+          {% csrf_token %}
+          <button type="submit">▶ Start Timer</button>
         </form>
-      </li>
-    {% empty %}
-      <li>No tasks yet. Let's create one!</li>
-    {% endfor %}
-  </ul>
+    {% endif %}
+    {% if task.total_duration %}
+        <small>Total Duration: {{ task.total_duration|duration }} total</small>
+    {% else %}
+        <small>No time tracked yet</small>
+    {% endif %}
+    </li>
+  {% endfor %}
+</ul>
 {% endblock %}
+
+
+<h1>Welcome to TicketyDo ⏐⏱️</h1>
+<p>This is where time-boxed tasks live.</p>
+
