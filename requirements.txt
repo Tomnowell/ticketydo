@@ -8,6 +8,7 @@ cffi==1.17.1
 charset-normalizer==3.4.2
 click==8.2.1
 cryptography==45.0.5
+dj-database-url==3.0.1
 Django==5.2.4
 dparse==0.6.4
 filelock==3.16.1
