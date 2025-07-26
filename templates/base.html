@@ -8,7 +8,13 @@
     <header>
       <h1><a href="/">TicketyDo 🕐</a></h1>
       {% if user.is_authenticated %}
-        <p>Logged in as {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+        <p>
+          Logged in as {{ user.username }} |
+          <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" style="background:none;border:none;padding:0;color:#00f;text-decoration:underline;cursor:pointer;">Logout</button>
+          </form>
+        </p>
       {% else %}
         <p><a href="{% url 'login' %}">Login</a></p>
       {% endif %}
