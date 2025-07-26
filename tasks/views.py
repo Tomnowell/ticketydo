@@ -25,3 +25,16 @@ def task_create(request):
     else:
         form = TaskForm()
     return render(request, 'tasks/task_form.html', {'form': form})
+
+from django.shortcuts import get_object_or_404
+
+@login_required
+def task_complete(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+
+    if request.method == 'POST':
+        task.is_completed = True
+        task.save()
+        return redirect('task-list')
+
+    return redirect('task-list')  # fallback for GET
