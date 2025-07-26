@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-9)hitbyj-gix2db%$yls@#9od9wc!h_zw5%xlca-mm_$@z8c(%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
 
 
 # Application definition
@@ -130,12 +132,6 @@ LOGIN_URL = '/users/login/'
 # Redirect to task list after login
 LOGIN_REDIRECT_URL = '/'
 
-import os
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',  # fallback for local dev
-        conn_max_age=600
-    )
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 }

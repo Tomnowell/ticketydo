@@ -1,0 +1,1 @@
+web: gunicorn ticketydo.wsgi:application
