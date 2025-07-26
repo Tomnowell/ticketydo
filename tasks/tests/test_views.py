@@ -79,6 +79,24 @@ class TaskCompleteTests(TestCase):
         self.task.refresh_from_db()
         self.assertTrue(self.task.is_completed)
 
+
+    def test_toggle_task_completion_on(self):
+        # First toggle: should mark complete
+        response = self.client.post(reverse('task-toggle', args=[self.task.id]))
+        self.assertEqual(response.status_code, 302)
+        self.task.refresh_from_db()
+        self.assertTrue(self.task.is_completed)
+
+    def test_toggle_task_completion_off(self):
+        self.task.is_completed = True
+        self.task.save()
+
+        # Second toggle: should unmark complete
+        response = self.client.post(reverse('task-toggle', args=[self.task.id]))
+        self.assertEqual(response.status_code, 302)
+        self.task.refresh_from_db()
+        self.assertFalse(self.task.is_completed)
+
     def test_cannot_complete_other_users_task(self):
         other_user = User.objects.create_user(username='someone_else', password='pass')
         other_task = Task.objects.create(

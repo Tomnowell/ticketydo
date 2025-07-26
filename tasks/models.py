@@ -11,3 +11,8 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+    
+class TaskSession(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='sessions')
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True, blank=True)

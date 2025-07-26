@@ -38,3 +38,14 @@ def task_complete(request, task_id):
         return redirect('task-list')
 
     return redirect('task-list')  # fallback for GET
+
+@login_required
+def task_toggle(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+
+    if request.method == 'POST':
+        task.is_completed = not task.is_completed
+        task.save()
+        return redirect('task-list')
+
+    return redirect('task-list')

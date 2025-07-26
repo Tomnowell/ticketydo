@@ -9,9 +9,11 @@
       <li>
         <strong>{{ task.title }}</strong> – {{ task.estimated_minutes }} mins
         {% if task.is_completed %}✅{% endif %}
-        <form method="post" action="{% url 'task-complete' task.id %}">
+        <form method="post" action="{% url 'task-toggle' task.id %}" style="display:inline;">
             {% csrf_token %}
-            {% if not task.is_completed %}
+            {% if task.is_completed %}
+                <button type="submit">🔄 Undo</button>
+            {% else %}
                 <button type="submit">✅ Complete</button>
             {% endif %}
         </form>
