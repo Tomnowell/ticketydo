@@ -1,2 +1,2 @@
 # ticketydo
-A simple, shared check-in app designed for small teams or project groups who need a lightweight, shared to-do list app with live updates without needing a full project management suite.
+A simple, django-based todo list with time tracking and built-in pomodoro timer. For those who don't need a full project management suite.
