@@ -136,4 +136,10 @@ LOGIN_REDIRECT_URL = '/'
 
 DATABASES = {
     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
-}
+} 
+
+# If you chose the project-level static/ directory:
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Where collected static files go for production (e.g., Render, nginx, etc.)
+STATIC_ROOT = BASE_DIR / "staticfiles"
